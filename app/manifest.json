@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-f69e6f8e.js",
+    "file": "start-2144dd2b.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -52,7 +52,7 @@
     ]
   },
   "frontend/routes/hangman/index.svelte": {
-    "file": "pages/hangman/index.svelte-f90e52c4.js",
+    "file": "pages/hangman/index.svelte-22ec075f.js",
     "src": "frontend/routes/hangman/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
