@@ -13,19 +13,23 @@
 
 	const isGuessed = () => [...word.word].every((letter) => guesses.includes(letter));
 	const guess = (event) => {
-		const hasNumber = /\d/;
-
-		if (hasNumber.test(String.fromCharCode(event.which))) {
-			return;
-		}
-
-		if (!guesses.includes(String.fromCharCode(event.which))) {
-			guesses = [...guesses, String.fromCharCode(event.which)];
+		let char = typeof event === undefined ? event.keyCode : event.which;
+		if (!guessesIncludesChar(String.fromCharCode(char).toLowerCase())) {
+			guesses = [...guesses, String.fromCharCode(char).toLowerCase()];
 		}
 	};
+
+	const updateGuessMobile = (event) => {
+		if (!guessesIncludesChar(event.data.toLowerCase())) {
+			guesses = [...event.data.toLowerCase()];
+		}
+	};
+
+	const guessesIncludesChar = (char) => guesses.includes(char);
+
 	onMount(() => {
 		newRound();
-		document.onkeypress = guess;
+		document.onkeydown = guess;
 	});
 </script>
 
@@ -53,23 +57,18 @@
 			{#each [...guesses] as letter}
 				<input value={letter} disabled class:valid={[...word.word].includes(letter)} readonly />
 			{/each}
-
-			{#if isGuessed()}
-				<button class="button is-primary is-fullwidth" on:click={newRound}>Opnieuw?</button>
-			{:else}
-				<br />
-				<div class="columns for-mobile for-tablet">
-					<div class="column is-half is-offset-one-quarter">
-						<input
-							value={guesses.join('')}
-							type="text"
-							class="input is-fullwidth"
-							on:keypress={guess}
-						/>
-					</div>
-				</div>
-			{/if}
 		{/key}
+
+		{#if isGuessed()}
+			<button class="button is-primary is-fullwidth" on:click={newRound}>Opnieuw?</button>
+		{:else}
+			<br />
+			<div class="columns for-mobile for-tablet">
+				<div class="column is-half is-offset-one-quarter">
+					<input class="input is-fullwidth" on:input={updateGuessMobile} />
+				</div>
+			</div>
+		{/if}
 	{/if}
 </section>
 
