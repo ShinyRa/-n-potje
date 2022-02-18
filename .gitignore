@@ -1,0 +1,15 @@
+.vscode
+
+.DS_Store
+
+node_modules
+
+/build
+/.svelte-kit
+/package
+/coverage
+
+# Secrets
+.env
+.env.*
+!.env.example
