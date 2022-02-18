@@ -2,7 +2,10 @@
 	import { base } from '$app/paths';
 	import { goto } from '$app/navigation';
 
-	const routes = [{ title: 'Home', route: '' }];
+	const routes = [
+		{ title: 'Home', route: '' },
+		{ title: 'Hangman', route: '/hangman' }
+	];
 </script>
 
 <section class="hero">
