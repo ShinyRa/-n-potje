@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 ghpages.publish(
-	'build',
+	'public',
 	{
 		branch: 'gh-pages',
 		repo: process.env.GH_REPO,

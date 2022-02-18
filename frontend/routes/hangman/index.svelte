@@ -13,6 +13,7 @@
 
 	const isGuessed = () => [...word.word].every((letter) => guesses.includes(letter));
 	onMount(() => {
+		newRound();
 		document.onkeypress = (event) => {
 			const hasNumber = /\d/;
 
@@ -56,8 +57,6 @@
 				<button class="button is-primary is-fullwidth" on:click={newRound}>Retry?</button>
 			{/if}
 		{/key}
-	{:else}
-		<button class="button is-primary is-large" on:click={newRound}>Start playing</button>
 	{/if}
 </section>
 
