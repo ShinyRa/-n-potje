@@ -45,4 +45,10 @@
 		width: 10%;
 		padding-top: 25px;
 	}
+	/* Mobile */
+	@media screen and (max-width: 480px) {
+		aside {
+			display: none;
+		}
+	}
 </style>

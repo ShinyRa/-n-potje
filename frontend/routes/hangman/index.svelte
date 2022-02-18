@@ -12,19 +12,20 @@
 	};
 
 	const isGuessed = () => [...word.word].every((letter) => guesses.includes(letter));
+	const guess = (event) => {
+		const hasNumber = /\d/;
+
+		if (hasNumber.test(String.fromCharCode(event.which))) {
+			return;
+		}
+
+		if (!guesses.includes(String.fromCharCode(event.which))) {
+			guesses = [...guesses, String.fromCharCode(event.which)];
+		}
+	};
 	onMount(() => {
 		newRound();
-		document.onkeypress = (event) => {
-			const hasNumber = /\d/;
-
-			if (hasNumber.test(String.fromCharCode(event.which))) {
-				return;
-			}
-
-			if (!guesses.includes(String.fromCharCode(event.which))) {
-				guesses = [...guesses, String.fromCharCode(event.which)];
-			}
-		};
+		document.onkeypress = guess;
 	});
 </script>
 
@@ -44,7 +45,6 @@
 					/>
 				{/key}
 			{/each}
-			<br />
 			{#if !isGuessed()}
 				<h3>Gegokt ({guesses.length})</h3>
 			{:else}
@@ -53,17 +53,35 @@
 			{#each [...guesses] as letter}
 				<input value={letter} disabled class:valid={[...word.word].includes(letter)} readonly />
 			{/each}
+
 			{#if isGuessed()}
-				<button class="button is-primary is-fullwidth" on:click={newRound}>Retry?</button>
+				<button class="button is-primary is-fullwidth" on:click={newRound}>Opnieuw?</button>
+			{:else}
+				<br />
+				<div class="columns for-mobile for-tablet">
+					<div class="column is-half is-offset-one-quarter">
+						<input
+							value={guesses.join('')}
+							type="text"
+							class="input is-fullwidth"
+							on:keypress={guess}
+						/>
+					</div>
+				</div>
 			{/if}
 		{/key}
 	{/if}
 </section>
 
 <style lang="scss">
+	.for-mobile,
+	.for-tablet {
+		display: none;
+	}
 	.container {
 		margin: 0px auto;
 		margin-top: 40px;
+		text-align: center;
 	}
 
 	h1 {
@@ -72,6 +90,7 @@
 	}
 
 	h3 {
+		margin-top: 15px;
 		font-size: 1.6rem;
 	}
 
@@ -92,5 +111,38 @@
 
 	button.is-fullwidth {
 		margin-top: 5rem;
+	}
+
+	/* Tablet */
+	@media (min-width: 481px) and (max-width: 1280px) {
+		.for-tablet {
+			display: block;
+		}
+		input {
+			width: 1.5rem;
+			height: 3rem;
+			margin: 1rem;
+			font-size: 1.7rem;
+		}
+
+		h3 {
+			font-size: 1.5rem;
+		}
+	}
+	/* Mobile */
+	@media screen and (max-width: 480px) {
+		.for-mobile {
+			display: block;
+		}
+		input {
+			width: 1.2rem;
+			height: 2rem;
+			margin: 0.8rem;
+			font-size: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.2rem;
+		}
 	}
 </style>
