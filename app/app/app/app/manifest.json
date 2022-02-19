@@ -1,10 +1,10 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-d71a3356.js",
+    "file": "start-500925d2.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_vendor-f1fe5a97.js",
+      "_vendor-0a3bf839.js",
       "_singletons-82f8d8c8.js"
     ],
     "dynamicImports": [
@@ -15,12 +15,12 @@
     ]
   },
   "frontend/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-27c538df.js",
+    "file": "pages/__layout.svelte-1a9c9158.js",
     "src": "frontend/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f1fe5a97.js",
+      "_vendor-0a3bf839.js",
       "_singletons-82f8d8c8.js",
       "_navigation-6d49ae0a.js"
     ],
@@ -29,21 +29,21 @@
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
-    "file": "error.svelte-22b5d1d4.js",
+    "file": "error.svelte-c4e50c63.js",
     "src": ".svelte-kit/runtime/components/error.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f1fe5a97.js"
+      "_vendor-0a3bf839.js"
     ]
   },
   "frontend/routes/index.svelte": {
-    "file": "pages/index.svelte-79b0df9a.js",
+    "file": "pages/index.svelte-35d3710d.js",
     "src": "frontend/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f1fe5a97.js",
+      "_vendor-0a3bf839.js",
       "_singletons-82f8d8c8.js",
       "_navigation-6d49ae0a.js"
     ],
@@ -52,19 +52,19 @@
     ]
   },
   "frontend/routes/hangman/index.svelte": {
-    "file": "pages/hangman/index.svelte-ab38f638.js",
+    "file": "pages/hangman/index.svelte-68970144.js",
     "src": "frontend/routes/hangman/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_vendor-f1fe5a97.js"
+      "_vendor-0a3bf839.js"
     ],
     "css": [
       "assets/pages/hangman/index.svelte-68b62986.css"
     ]
   },
-  "_vendor-f1fe5a97.js": {
-    "file": "chunks/vendor-f1fe5a97.js"
+  "_vendor-0a3bf839.js": {
+    "file": "chunks/vendor-0a3bf839.js"
   },
   "_singletons-82f8d8c8.js": {
     "file": "chunks/singletons-82f8d8c8.js"
