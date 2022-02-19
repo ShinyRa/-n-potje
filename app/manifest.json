@@ -1,12 +1,11 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-9aeecce2.js",
+    "file": "start-9324a727.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
       "_vendor-0a3bf839.js",
-      "_paths-396f020f.js",
-      "_singletons-a6a7384f.js"
+      "_singletons-82f8d8c8.js"
     ],
     "dynamicImports": [
       "frontend/routes/__layout.svelte",
@@ -16,14 +15,14 @@
     ]
   },
   "frontend/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-12e82f76.js",
+    "file": "pages/__layout.svelte-1a9c9158.js",
     "src": "frontend/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_vendor-0a3bf839.js",
-      "_paths-396f020f.js",
-      "_singletons-a6a7384f.js"
+      "_singletons-82f8d8c8.js",
+      "_navigation-6d49ae0a.js"
     ],
     "css": [
       "assets/pages/__layout.svelte-ccc62a36.css"
@@ -39,20 +38,21 @@
     ]
   },
   "frontend/routes/index.svelte": {
-    "file": "pages/index.svelte-859f3f49.js",
+    "file": "pages/index.svelte-35d3710d.js",
     "src": "frontend/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_vendor-0a3bf839.js",
-      "_paths-396f020f.js"
+      "_singletons-82f8d8c8.js",
+      "_navigation-6d49ae0a.js"
     ],
     "css": [
       "assets/pages/index.svelte-8845b356.css"
     ]
   },
   "frontend/routes/hangman/index.svelte": {
-    "file": "pages/hangman/index.svelte-0645bf61.js",
+    "file": "pages/hangman/index.svelte-68970144.js",
     "src": "frontend/routes/hangman/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -66,10 +66,13 @@
   "_vendor-0a3bf839.js": {
     "file": "chunks/vendor-0a3bf839.js"
   },
-  "_paths-396f020f.js": {
-    "file": "chunks/paths-396f020f.js"
+  "_singletons-82f8d8c8.js": {
+    "file": "chunks/singletons-82f8d8c8.js"
   },
-  "_singletons-a6a7384f.js": {
-    "file": "chunks/singletons-a6a7384f.js"
+  "_navigation-6d49ae0a.js": {
+    "file": "chunks/navigation-6d49ae0a.js",
+    "imports": [
+      "_singletons-82f8d8c8.js"
+    ]
   }
 }
