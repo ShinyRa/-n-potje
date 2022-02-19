@@ -1,7 +1,9 @@
 import * as ghpages from 'gh-pages';
 import * as dotenv from 'dotenv';
+
 dotenv.config();
 
+// Publish build
 ghpages.publish(
 	'public',
 	{
@@ -10,7 +12,8 @@ ghpages.publish(
 		user: {
 			name: process.env.GH_USER,
 			email: process.env.GH_EMAIL
-		}
+		},
+		dotfiles: true
 	},
 	() => {
 		console.log('Deploy Complete!');

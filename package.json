@@ -3,14 +3,14 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-check && svelte-kit dev",
-		"build": "svelte-kit build",
-		"clean": "rm -rf node_modules && rm -rf .svelte-kit && rm -rf public && rm -rf build",
+		"build": "svelte-kit build && rm -rf public && mv build public",
+		"clean": "rm -rf node_modules && rm -rf .svelte-kit && rm -rf public && rm -rf build && sed -i 's;href=\"/een-potje/;href=\"./;g' public/index.html",
 		"preview": "svelte-kit preview",
 		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
 		"test": "jest frontend --passWithNoTests && jest backend --passWithNoTests",
 		"depcheck": "depcheck",
-		"deploy": "node ./gh-pages.js"
+		"deploy": "yarn build && node ./gh-pages.js"
 	},
 	"devDependencies": {
 		"@babel/preset-env": "^7.16.11",
