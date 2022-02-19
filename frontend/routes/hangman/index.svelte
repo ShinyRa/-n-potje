@@ -1,33 +1,32 @@
 <script lang="ts">
-	import { ProfanityAPI } from '$lib/api/profantiy';
+	import { HangmanAPI } from '$lib/api/profantiy';
+	import HangmanRound from '$lib/entities/hangman/HangmanRound';
 	import { onMount } from 'svelte';
-	import { fly } from 'svelte/transition';
+	import { writable } from 'svelte/store';
+	import { fly, fade } from 'svelte/transition';
+	import { elasticOut } from 'svelte/easing';
 
-	let word;
-	let guesses = [];
+	let round = writable<HangmanRound>(null);
 
 	const newRound = () => {
-		word = ProfanityAPI.randomSwearWord();
-		guesses = [];
+		const data = HangmanAPI.newRound();
+		round.set(data.round);
+		console.log($round.word);
 	};
 
-	const isGuessed = () => [...word.word].every((letter) => guesses.includes(letter));
-
 	const guess = (event) => {
-		let char = typeof event === undefined ? event.keyCode : event.which;
-		if (!guessesIncludesChar(String.fromCharCode(char).toLowerCase())) {
-			guesses = [...guesses, String.fromCharCode(char).toLowerCase()];
-		}
+		const guessedletter = typeof event === undefined ? event.keyCode : event.which;
+		const letter = String.fromCharCode(guessedletter).toLowerCase();
+		$round.guess(letter);
+		round.set($round);
 	};
 
 	const updateGuessMobile = (event) => {
-		const toAppend = event.data[event.data.length - 1];
-		if (!guessesIncludesChar(toAppend.toLowerCase())) {
-			guesses = [...guesses, toAppend.toLowerCase()];
-		}
+		const guessedLetter = event.data[event.data.length - 1];
+		const letter = guessedLetter.toLowerCase();
+		$round.guess(letter);
+		round.set($round);
 	};
-
-	const guessesIncludesChar = (char) => guesses.includes(char);
 
 	onMount(() => {
 		newRound();
@@ -36,32 +35,31 @@
 </script>
 
 <section class="container has-text-centered">
-	{#if word}
-		{#key guesses}
-			{#if isGuessed()}
-				<h1 in:fly={{ duration: 500, y: -50 }}>Je noemde iemand "{word.word}"</h1>
-			{/if}
-			{#each [...word.word] as letter}
-				{#key guesses.includes(letter)}
-					<input
-						value={guesses.includes(letter) ? letter : '*'}
-						readonly
-						class:valid={guesses.includes(letter)}
-						in:fly={{ duration: 250, y: -15, x: 0 }}
-					/>
-				{/key}
-			{/each}
-			{#if !isGuessed()}
-				<h3>Gegokt ({guesses.length})</h3>
-			{:else}
-				<h3>Je bent gecancelled in {guesses.length} pogingen</h3>
-			{/if}
-			{#each [...guesses] as letter}
-				<input value={letter} disabled class:valid={[...word.word].includes(letter)} readonly />
-			{/each}
-		{/key}
+	{#if $round}
+		{#if $round.isGuessed()}
+			<h1 in:fly={{ duration: 500, y: -50 }}>Je noemde iemand "{$round.getWord()}"</h1>
+		{/if}
+		{#each [...$round.getWord()] as letter}
+			{#key $round.guessesHasLetter(letter)}
+				<input
+					value={$round.guessesHasLetter(letter) ? letter : '*'}
+					class:valid={$round.guessesHasLetter(letter)}
+					readonly
+					in:fly={{ duration: 750, y: 20, x: 0, easing: elasticOut }}
+					out:fly={{ duration: 0, y: 20, x: 0 }}
+				/>
+			{/key}
+		{/each}
+		{#if !$round.isGuessed()}
+			<h3>Gegokt ({$round.getTries()})</h3>
+		{:else}
+			<h3>Je bent gecancelled in {$round.getTries()} pogingen</h3>
+		{/if}
+		{#each [...$round.getGuesses()] as letter}
+			<input value={letter} disabled class:valid={$round.wordHasLetter(letter)} readonly />
+		{/each}
 
-		{#if isGuessed()}
+		{#if $round.isGuessed()}
 			<button class="button is-primary is-fullwidth" on:click={newRound}>Opnieuw?</button>
 		{:else}
 			<br />

@@ -1,6 +1,5 @@
 class profanity {
-	private word;
-	private words = [
+	static words = [
 		'aalskakker',
 		'aambeienbeffer',
 		'aambeienlikker',
@@ -13,7 +12,7 @@ class profanity {
 		'aaprikaan',
 		'aardappelhoer',
 		'aardappelluis',
-		'aardbanaan (lief bedoeld)',
+		'aardbanaan',
 		'aardgeest',
 		'aardpeer',
 		'aardpiraat',
@@ -141,7 +140,7 @@ class profanity {
 		'pakhuisrat',
 		'palenlaaier',
 		'palingkop',
-		'palingstekker(homo)',
+		'palingstekker',
 		'palingvel',
 		'palmboomneuker',
 		'pannekoek',
@@ -153,8 +152,8 @@ class profanity {
 		'papegaai',
 		'papagaaiekuttenbefkonijn',
 		'papzak',
-		'Penis Aqua Rosa (Lulletje Rozenwater in het latijn)',
-		'Penis Papierus Plaksus (Lul De Behanger in het latijn)',
+		'Penis Aqua Rosa',
+		'Penis Papierus Plaksus',
 		'papomslag',
 		'pappige luller',
 		'parasiet',
@@ -210,7 +209,7 @@ class profanity {
 		'piemelboxer',
 		'piemelbrie',
 		'piemelgymmer',
-		'piemelhoofdje(s)',
+		'piemelhoofdje',
 		'piemelpatser',
 		'piemelpiraat',
 		'piemelpuist',
@@ -442,7 +441,7 @@ class profanity {
 		'valse noot',
 		'vampier',
 		'van de baarmoeder afgerukte -tietloze cabaretslet',
-		'van de potgerukte...',
+		'van de potgerukte',
 		'vandaal',
 		'varken',
 		'varkenshol',
@@ -457,7 +456,7 @@ class profanity {
 		'wandelend virus',
 		'wanhopigedarmrukker',
 		'wannabee',
-		'wasbakkenpisser(wabipi)',
+		'wasbakkenpisser',
 		'wasknijper',
 		'waterdrinker',
 		'waterhoofd',
@@ -553,7 +552,7 @@ class profanity {
 		'darmkikker',
 		'darmneuker',
 		'darmstad',
-		'darmtoerist	',
+		'darmtoerist',
 		'ebverzuiper',
 		'ectoplasma',
 		'edeldarm',
@@ -613,7 +612,7 @@ class profanity {
 		'hamsteraar',
 		'hamsterpampe',
 		'hamsterpijper',
-		'handelaar in 2hands vogelmest',
+		'handelaar in tweedehands vogelmest',
 		'handvat',
 		'hangbuikvarkenkonteneuker',
 		'hangbuikzwijn',
@@ -621,14 +620,8 @@ class profanity {
 		'holtor'
 	];
 
-	constructor() {
-		this.word = this.getRandomWord();
-	}
-
-	public getWord = (): string => this.word;
-
-	public getRandomWord = (): string =>
-		this.words[Math.floor(Math.random() * this.words.length + 1)];
+	static getRandomWord = (): string =>
+		profanity.words[Math.floor(Math.random() * profanity.words.length + 1)];
 }
 
 export default profanity;

@@ -1,17 +1,9 @@
-import Profanity from '../../utils/profanity/Profanity';
+import HangmanRound from '../../entities/hangman/HangmanRound';
 
-export const ProfanityAPI = {
-	randomSwearWord(): Record<string, unknown> {
-		const profanity = new Profanity();
-		const hasNumber = /\d/;
-		let word = profanity.getWord();
-		while (hasNumber.test(word)) {
-			word = profanity.getRandomWord();
-		}
-
+export const HangmanAPI = {
+	newRound(): Record<string, HangmanRound> {
 		return {
-			word,
-			length: word.length
+			round: new HangmanRound()
 		};
 	}
 };
