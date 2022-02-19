@@ -3,30 +3,35 @@
 	import HangmanRound from '$lib/entities/hangman/HangmanRound';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
-	import { fly, fade } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import { elasticOut } from 'svelte/easing';
 
 	let round = writable<HangmanRound>(null);
 
 	const newRound = () => {
-		const data = HangmanAPI.newRound();
-		round.set(data.round);
-		console.log($round.word);
+		round.set(HangmanAPI.newRound().round);
 	};
 
-	const guess = (event) => {
-		const guessedletter = typeof event === undefined ? event.keyCode : event.which;
-		const letter = String.fromCharCode(guessedletter).toLowerCase();
-		$round.guess(letter);
+	const guess = ({ key }) => {
+		if (!isInAlphabet(key)) {
+			return;
+		}
+		$round.guess(key.toLowerCase());
 		round.set($round);
 	};
 
 	const updateGuessMobile = (event) => {
 		const guessedLetter = event.data[event.data.length - 1];
 		const letter = guessedLetter.toLowerCase();
+		if (!isInAlphabet(letter)) {
+			return;
+		}
 		$round.guess(letter);
 		round.set($round);
 	};
+
+	const isInAlphabet = (letter: string): boolean =>
+		letter.length === 1 && Boolean(letter.match(/[a-z]/i));
 
 	onMount(() => {
 		newRound();
@@ -42,8 +47,9 @@
 		{#each [...$round.getWord()] as letter}
 			{#key $round.guessesHasLetter(letter)}
 				<input
-					value={$round.guessesHasLetter(letter) ? letter : '*'}
-					class:valid={$round.guessesHasLetter(letter)}
+					value={$round.guessesHasLetter(letter) || letter === '-' || letter === ' ' ? letter : '*'}
+					class:valid={$round.guessesHasLetter(letter) || letter === '-' || letter === ' '}
+					class="letter"
 					readonly
 					in:fly={{ duration: 750, y: 20, x: 0, easing: elasticOut }}
 					out:fly={{ duration: 0, y: 20, x: 0 }}
@@ -55,17 +61,28 @@
 		{:else}
 			<h3>Je bent gecancelled in {$round.getTries()} pogingen</h3>
 		{/if}
+		{#if $round.getTries() === 0}
+			<h5 in:fly={{ duration: 250, y: -15, x: 0 }} class="for-desktop">
+				Gebruik je toetsenbord om te gokken...
+			</h5>
+		{/if}
 		{#each [...$round.getGuesses()] as letter}
-			<input value={letter} disabled class:valid={$round.wordHasLetter(letter)} readonly />
+			<input
+				value={letter}
+				class="letter"
+				disabled
+				class:valid={$round.wordHasLetter(letter)}
+				readonly
+				in:fly={{ duration: 250, y: -15, x: 0 }}
+			/>
 		{/each}
 
 		{#if $round.isGuessed()}
 			<button class="button is-primary is-fullwidth" on:click={newRound}>Opnieuw?</button>
 		{:else}
-			<br />
-			<div class="columns for-mobile for-tablet">
-				<div class="column is-half is-offset-one-quarter">
-					<input class="input is-fullwidth" on:input={updateGuessMobile} />
+			<div class="for-mobile for-tablet">
+				<div class="column">
+					<input class="input user-input" on:input={updateGuessMobile} />
 				</div>
 			</div>
 		{/if}
@@ -93,17 +110,28 @@
 		font-size: 1.6rem;
 	}
 
-	input {
-		width: 3rem;
-		height: 6rem;
-		margin: 1.5rem;
-		font-size: 2.5rem;
-		text-align: center;
-		border-top: none;
-		border-left: none;
-		border-right: none;
+	h5 {
+		font-style: italic;
+		margin-top: 2.5rem;
+		font-size: 1.4rem;
+		color: #6f6e6e;
 	}
 
+	.letter {
+		text-transform: lowercase;
+		width: 3rem;
+		height: 5rem;
+		margin: 1rem;
+		font-size: 2.8rem;
+		text-align: center;
+		border: none;
+		border-bottom: 1px solid black;
+	}
+
+	input {
+		margin-top: 2rem;
+		max-width: 240px;
+	}
 	.valid {
 		border-bottom: 1px solid goldenrod;
 	}
@@ -117,11 +145,14 @@
 		.for-tablet {
 			display: block;
 		}
-		input {
-			width: 1.5rem;
+		.for-desktop {
+			display: none;
+		}
+		.letter {
+			width: 1.3rem;
 			height: 3rem;
-			margin: 1rem;
-			font-size: 1.7rem;
+			margin: 0.8rem;
+			font-size: 1.4rem;
 		}
 
 		h3 {
@@ -133,11 +164,14 @@
 		.for-mobile {
 			display: block;
 		}
-		input {
+		.for-desktop {
+			display: none;
+		}
+		.letter {
 			width: 1.2rem;
 			height: 2rem;
-			margin: 0.8rem;
-			font-size: 1.5rem;
+			margin: 0.4rem;
+			font-size: 1.2rem;
 		}
 
 		h3 {

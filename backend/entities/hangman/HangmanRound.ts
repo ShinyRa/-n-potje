@@ -24,6 +24,7 @@ class HangmanRound implements Round {
 	guess = (letter: string): void => {
 		if (!this.guessesHasLetter(letter)) {
 			this.guesses.push(letter);
+			this.guesses.sort();
 		}
 	};
 }
