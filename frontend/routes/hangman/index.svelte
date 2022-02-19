@@ -12,6 +12,7 @@
 	};
 
 	const isGuessed = () => [...word.word].every((letter) => guesses.includes(letter));
+
 	const guess = (event) => {
 		let char = typeof event === undefined ? event.keyCode : event.which;
 		if (!guessesIncludesChar(String.fromCharCode(char).toLowerCase())) {
@@ -20,8 +21,9 @@
 	};
 
 	const updateGuessMobile = (event) => {
-		if (!guessesIncludesChar(event.data.toLowerCase())) {
-			guesses = [...event.data.toLowerCase()];
+		const toAppend = event.data[event.data.length - 1];
+		if (!guessesIncludesChar(toAppend.toLowerCase())) {
+			guesses = [...guesses, toAppend.toLowerCase()];
 		}
 	};
 

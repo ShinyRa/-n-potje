@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { assets as assetsPath } from '$app/paths';
 	import { fly } from 'svelte/transition';
+	import { goto } from '$app/navigation';
 
 	let load;
 	onMount(() => (load = true));
@@ -12,6 +13,7 @@
 		<img src="{assetsPath}/logo.png" alt="Logo" class="logo" />
 		<p in:fly|local={{ y: -25, duration: 250, delay: 1250 }}>🚧 Under construction...</p>
 	</section>
+	<button class="button is-primary" on:click={() => goto('hangman')}>To hangman</button>
 {/if}
 
 <style lang="scss">
